@@ -1,0 +1,51 @@
+﻿<Window x:Class="SchoolPlatform.Views.Admin.ManageSubjectsClass"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SchoolPlatform.Views.Admin"
+        mc:Ignorable="d"
+        Title="ManageSubjectsClass" Height="450" Width="800">
+    <Grid>
+        <Label FontSize="24px" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" Height="44" Width="780">
+            <Label.Content>
+                <TextBlock Width="770">
+                    <Run Text="Subjects of " />
+                    <Run Text="{Binding SelectedClass.Specialization.SpecializationName}" />
+                    <Run Text=", clasa " />
+                    <Run Text="{Binding SelectedClass.YearOfStudy.Year}" />
+                </TextBlock>
+            </Label.Content>
+        </Label>
+        <ListView ItemsSource="{Binding ClassSubjects}" SelectedItem="{Binding SelectedClassSubject}" SelectionChanged="ComboBox_SelectionChanged" Margin="10,69,10,80">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="Height" Value="35"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.Resources>
+                <Style TargetType="GridViewColumnHeader">
+                    <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                </Style>
+            </ListView.Resources>
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Subject Name" DisplayMemberBinding="{Binding Subject.SubjectName}" Width="100"/>
+                    <GridViewColumn Header="Professor Name" DisplayMemberBinding="{Binding Professor.ProfessorName}" Width="100"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="12,359,0,10" >
+
+            <Label Content="Subject:" VerticalAlignment="Center"/>
+            <ComboBox FontSize="18px" ItemsSource="{Binding Subjects}" Margin="5"
+            DisplayMemberPath="SubjectName" SelectedItem="{Binding SelectedSubject}" Width="148"/>
+            <Label Content="Professor:" VerticalAlignment="Center"/>
+            <ComboBox FontSize="18px" ItemsSource="{Binding Professors}" Margin="5"
+                DisplayMemberPath="ProfessorName" SelectedItem="{Binding SelectedProfessor}" Width="151"/>
+            <Button Command="{Binding AddSubjectCommand}" CommandParameter="0" Content="Add Subject" Width="100" Margin="5"/>
+            <Button Command="{Binding RemoveSubjectCommand}" Content="Delete Subject" Width="100" Margin="5"/>
+            <Button Command="{Binding UpdateSubjectCommand}" Content="Edit Subject" Width="85" Margin="5"/>
+        </StackPanel>
+    </Grid>
+</Window>

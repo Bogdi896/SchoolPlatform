@@ -1,0 +1,109 @@
+﻿<Window x:Class="SchoolPlatform.Views.Admin.DashboardView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SchoolPlatform.ViewModels"
+        mc:Ignorable="d"
+        Title="Admin Dashboard" Height="550" Width="900">
+    <DockPanel LastChildFill="True">
+        <TabControl DockPanel.Dock="Top">
+            <TabItem Header="Students" DataContext="{Binding StudentViewModel}">
+                <DockPanel>
+                    <Label DockPanel.Dock="Top" FontSize="18px" Content="Students" HorizontalAlignment="Center"/>
+                    <StackPanel DockPanel.Dock="Right" Orientation="Vertical" Width="200">
+                        <Button Content="Add Student" Width="180" Margin="5" Click="AddStudent_Click"/>
+                        <Button Command="{Binding DeleteStudentCommand}" CommandParameter="{Binding SelectedStudent}" Name="DeleteStudent" Content="Delete Student" Width="180" Margin="5"/>
+                        <Button Content="Edit Student" Width="180" Margin="5" Click="EditStudent_Click"/>
+                    </StackPanel>
+                    <ListView DockPanel.Dock="Left" ItemsSource="{Binding Students}" SelectedItem="{Binding SelectedStudent}">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="Height" Value="35"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.Resources>
+                            <Style TargetType="GridViewColumnHeader">
+                                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                            </Style>
+                        </ListView.Resources>
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Full Name" DisplayMemberBinding="{Binding StudentName}" Width="100"/>
+                                <GridViewColumn Header="Role" DisplayMemberBinding="{Binding User.UserType}" Width="100"/>
+                                <GridViewColumn Header="Specialization" DisplayMemberBinding="{Binding Class.Specialization.SpecializationName}" Width="100"/>
+                                <GridViewColumn Header="Year of Study" DisplayMemberBinding="{Binding Class.YearOfStudy.Year}" Width="100"/>
+                                <GridViewColumn Header="Username" DisplayMemberBinding="{Binding User.UserName}" Width="100"/>
+                                <GridViewColumn Header="Password" DisplayMemberBinding="{Binding User.Password}" Width="100"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </DockPanel>
+            </TabItem>
+
+            <TabItem Header="Professors" DataContext="{Binding ProfessorViewModel}">
+                <DockPanel>
+                    <Label DockPanel.Dock="Top" FontSize="18px" Content="Professors" HorizontalAlignment="Center"/>
+                    <StackPanel DockPanel.Dock="Right" Orientation="Vertical" Width="200">
+                        <Button Command="{Binding OpenAddOrEditProfessorCommand}" CommandParameter="0" Content="Add Professor" Width="180" Margin="5"/>
+                        <Button Command="{Binding DeleteProfessorCommand}" Content="Delete Professor" Width="180" Margin="5"/>
+                        <Button Command="{Binding OpenAddOrEditProfessorCommand}" CommandParameter="1" Content="Edit Professor" Width="180" Margin="5"/>
+                    </StackPanel>
+                    <ListView DockPanel.Dock="Left" ItemsSource="{Binding Professors}" SelectedItem="{Binding SelectedProfessor}">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="Height" Value="35"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.Resources>
+                            <Style TargetType="GridViewColumnHeader">
+                                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                            </Style>
+                        </ListView.Resources>
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Full Name" DisplayMemberBinding="{Binding ProfessorName}" Width="100"/>
+                                <GridViewColumn Header="Role" DisplayMemberBinding="{Binding User.UserType}" Width="100"/>
+                                <GridViewColumn Header="Username" DisplayMemberBinding="{Binding User.UserName}" Width="100"/>
+                                <GridViewColumn Header="Password" DisplayMemberBinding="{Binding User.Password}" Width="100"/>
+
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </DockPanel>
+            </TabItem>
+
+            <TabItem Header="Classes" DataContext="{Binding ClassViewModel}">
+                <DockPanel>
+                    <Label DockPanel.Dock="Top" FontSize="18px" Content="Classes" HorizontalAlignment="Center"/>
+                    <StackPanel DockPanel.Dock="Right" Orientation="Vertical" Width="200">
+                        <Button Command="{Binding OpenAddOrEditWindowCommand}" CommandParameter="0" Content="Add Class" Width="180" Margin="5"/>
+                        <Button Command="{Binding DeleteClassCommand}" CommandParameter="{Binding }" Content="Delete Class" Width="180" Margin="5"/>
+                        <Button Command="{Binding OpenAddOrEditWindowCommand}" CommandParameter="1" Content="Edit Class" Width="180" Margin="5"/>
+                        <Button Command="{Binding OpenSubjectsWindowCommand}" Content="View Assigned Subjects" Width="180" Margin="5"/>
+                    </StackPanel>
+                    <ListView DockPanel.Dock="Left" ItemsSource="{Binding Classes}" SelectedItem="{Binding SelectedClass}">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="Height" Value="35"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.Resources>
+                            <Style TargetType="GridViewColumnHeader">
+                                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                            </Style>
+                        </ListView.Resources>
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Specialization" DisplayMemberBinding="{Binding Specialization.SpecializationName}" Width="100"/>
+                                <GridViewColumn Header="Year of study" DisplayMemberBinding="{Binding YearOfStudy.Year}" Width="100"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </DockPanel>
+            </TabItem>
+
+            <!-- Add more TabItems for other sections... -->
+        </TabControl>
+    </DockPanel>
+</Window>
